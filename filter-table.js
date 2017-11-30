@@ -6,7 +6,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtable', 'ojs/ojarraytabledata
 								self.tableId = ko.observable();
                 self.filterBy = ko.observable("");
                 self.headerArray = [];
-                self.rows = ko.observableArray();
+                self.rows = ko.observableArray([]);
                 self.datasource = ko.observable();
 
                 // do the filtering in a new worker 2thread
@@ -46,7 +46,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtable', 'ojs/ojarraytabledata
                     }
                     // to catch an implementation without any data passed in
                     if (properties.data) {
-                      self.rows = properties.data.rows;
+                      self.rows(properties.data.rows);
                       self.headers = properties.data.headers;
                       var filteredHeaders = {};
 
@@ -73,7 +73,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtable', 'ojs/ojarraytabledata
                       }
                       // for debugging
                       console.log("header array == "+JSON.stringify(self.headerArray))
-                      console.log("rows array == "+JSON.stringify(self.rows))
+                      console.log("rows array == "+JSON.stringify(self.rows()))
                       
                       
                       self.datasource(new oj.ArrayTableDataSource([], {idAttribute : "rowIndex"}));
